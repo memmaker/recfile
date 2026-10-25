@@ -87,3 +87,10 @@ func TestPatchKeepsVoxelRogueFields(t *testing.T) {
 		}
 	}
 }
+
+func TestRepeatedRecordTypeKeepsEarlierRecords(t *testing.T) {
+	got := ReadMulti(strings.NewReader("%rec: A\nx: 1\n\n%rec: B\ny: 2\n\n%rec: A\nx: 3\n"))
+	if len(got["A"]) != 2 || len(got["B"]) != 1 {
+		t.Fatalf("got %v", got)
+	}
+}

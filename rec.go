@@ -189,7 +189,9 @@ func (r *RecReader) ReadLine(line string) {
 		r.currentRecord = make([]Field, 0)
 		r.currentField = Field{}
 		r.currentRecordType = matches[1]
-		r.records[r.currentRecordType] = make([]Record, 0)
+		if _, ok := r.records[r.currentRecordType]; !ok {
+			r.records[r.currentRecordType] = make([]Record, 0)
+		}
 		return
 	}
 
